@@ -1,0 +1,7 @@
+<svg width="428" height="92" viewBox="0 0 428 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 10H112V82H10V10Z" stroke="white" stroke-width="8"/>
+  <path d="M58 10C70 22 78 36 82 52M10 58C36 56 60 62 86 82M34 10L10 34" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="86" cy="24" r="12" fill="white"/>
+  <text x="142" y="40" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="500">CLEAN</text>
+  <text x="142" y="74" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="500">TECH OPEN</text>
+</svg>

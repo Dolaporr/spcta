@@ -1,0 +1,87 @@
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(7,9,13,0.70);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+.header.scrolled {
+  background: rgba(7,9,13,0.94);
+  border-color: var(--border);
+}
+.inner {
+  display: flex; align-items: center;
+  justify-content: space-between; height: 72px;
+}
+/* Blue text logo */
+.logo {
+  font-size: 22px; font-weight: 800;
+  letter-spacing: 0.08em; color: var(--blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.logo:hover { color: var(--cyan); }
+
+.nav { display: flex; gap: 32px; }
+.navLink {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none; transition: color 0.2s; position: relative;
+}
+.navLink::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 1px; background: var(--cyan);
+  transform: scaleX(0); transition: transform 0.25s;
+}
+.navLink:hover { color: var(--text); }
+.navLink:hover::after { transform: scaleX(1); }
+
+/* CTA — blue default, slides to GREEN on hover (like HYBR) */
+.cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; cursor: pointer; white-space: nowrap;
+  padding: 10px 22px; border-radius: 8px; border: none;
+  background-image: linear-gradient(90deg, #6fa332 50%, var(--blue) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  color: #fff;
+  transition: background-position 0.42s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.3s ease;
+}
+.cta:hover {
+  background-position: 0 0;
+  box-shadow: 0 0 28px rgba(143,192,69,0.45);
+}
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--text); border-radius: 1px;
+}
+.mobileMenu {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+.mobileLink {
+  padding: 14px 24px; font-size: 13px; font-weight: 500;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+  text-decoration: none; transition: color 0.2s;
+}
+.mobileLink:hover { color: var(--text); }
+.mobileCta {
+  margin: 16px 24px; text-align: center;
+  background: var(--blue); color: #fff;
+  border: none; border-radius: 8px; padding: 14px;
+  font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .nav { display: none; }
+  .cta { display: none; }
+  .hamburger { display: flex; }
+}

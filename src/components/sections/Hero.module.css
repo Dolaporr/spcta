@@ -1,0 +1,145 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 0;
+  position: relative;
+}
+
+.layout {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 80px;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+}
+
+.headline {
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 40px;
+  line-height: 1.75;
+}
+
+.btnPrimary {
+  background-image: linear-gradient(90deg, #6fa332 50%, var(--blue) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  color: #fff;
+  transition:
+    background-position 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease;
+}
+
+.btnPrimary:hover {
+  background-position: 0 0;
+  box-shadow: 0 0 32px rgba(143, 192, 69, 0.45);
+}
+
+.marqueeWrap {
+  position: relative;
+  z-index: 2;
+  padding: 28px 0 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(to top, rgba(7, 9, 13, 0.85), transparent);
+}
+
+.marqueeLabel {
+  margin-bottom: 18px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+
+.marqueeTrack {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.marqueeInner {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 74px;
+  padding: 0 28px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.logoItem:last-child {
+  border-right: none;
+}
+
+.logoImage {
+  display: block;
+  max-width: none;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.08));
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 960px) {
+  .hero {
+    background-image: url("/img/hero_mobile.png") !important;
+    padding-top: 100px;
+  }
+
+  .headline {
+    font-size: clamp(36px, 9vw, 56px);
+  }
+
+  .sub {
+    font-size: 15px;
+  }
+
+  .marqueeWrap {
+    padding: 24px 0 30px;
+  }
+
+  .marqueeTrack {
+    mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+
+  .logoItem {
+    min-height: 60px;
+    padding: 0 20px;
+  }
+
+  .logoImage {
+    width: auto !important;
+    max-width: 150px;
+    max-height: 36px;
+  }
+}
