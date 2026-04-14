@@ -331,9 +331,18 @@ const AUDIENCES = [
 ];
 
 export function Audiences() {
-  const partners = ["Coca-Cola", "British Petroleum", "Procter & Gamble", "Indorama", "IHS Towers", "CleanTech Open", "Future Africa", "Alkem", "Lagos State"];
+  const partners = [
+    { name: "Coca-Cola", src: "/logos/coca-cola.svg", width: 148, height: 32 },
+    { name: "bp", src: "/logos/bp.svg", width: 110, height: 38 },
+    { name: "Indorama", src: "/logos/indorama.svg", width: 146, height: 28 },
+    { name: "IHS", src: "/logos/ihs.svg", width: 82, height: 30 },
+    { name: "ACT", src: "/logos/act.svg", width: 164, height: 30 },
+    { name: "Future Africa", src: "/logos/future-africa.svg", width: 176, height: 30 },
+    { name: "CleanTech Open", src: "/logos/cleantech-open.svg", width: 184, height: 38 },
+    { name: "Lagos State Office of Works", src: "/logos/lagos-state-works.svg", width: 66, height: 66 },
+  ];
   return (
-    <section className="sec sec-mid" id="audiences">
+    <section className="sec sec-mid" id="audiences" style={{ paddingBottom: 140 }}>
       <div className="container">
         <motion.div style={{ textAlign: "center", maxWidth: 560, margin: "0 auto 64px" }} variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
           <motion.p className="eyebrow eyebrow-center" variants={fadeUp}>Who We Serve</motion.p>
@@ -349,17 +358,38 @@ export function Audiences() {
           ))}
         </motion.div>
         {/* Partner logos below audience grid */}
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ marginTop: 72, borderTop: "1px solid var(--border)", paddingTop: 48, maxWidth: 980, marginInline: "auto" }}>
-          <motion.p variants={fadeUp} style={{ textAlign: "center", fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 32 }}>Our Partners</motion.p>
-          <motion.div variants={staggerFast} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 1, background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)", padding: 1 }}>
-            {partners.map(name => (
-              <motion.div key={name} variants={cardItem} style={{ minHeight: 96, background: "#05070b", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px 24px", textAlign: "center" }}>
-                <span style={{ color: "rgba(255,255,255,0.78)", fontSize: 18, fontWeight: 700, letterSpacing: "0.03em", lineHeight: 1.3 }}>
-                  {name}
-                </span>
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ marginTop: 72, borderTop: "1px solid var(--border)", paddingTop: 56, maxWidth: 980, marginInline: "auto" }}>
+          <motion.p variants={fadeUp} style={{ textAlign: "center", fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 36 }}>Our Partners</motion.p>
+          <motion.div
+            variants={staggerFast}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+              gap: 1,
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid var(--border)",
+              padding: 1,
+              maxWidth: 980,
+              marginInline: "auto",
+            }}
+          >
+            {partners.map((partner) => (
+              <motion.div key={partner.name} variants={cardItem} style={{ minHeight: 120, background: "#05070b", display: "flex", alignItems: "center", justifyContent: "center", padding: "26px 28px", textAlign: "center" }}>
+                <img
+                  src={partner.src}
+                  alt={partner.name}
+                  style={{
+                    width: partner.width,
+                    height: partner.height,
+                    objectFit: "contain",
+                    opacity: 0.92,
+                    filter: "drop-shadow(0 0 12px rgba(255,255,255,0.05))",
+                  }}
+                />
               </motion.div>
             ))}
           </motion.div>
+          <motion.div variants={fadeUp} style={{ height: 48 }} />
         </motion.div>
 
       </div>

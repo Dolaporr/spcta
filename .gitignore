@@ -5,3 +5,5 @@ dev-server.out.log
 dev-server.err.log
 .env.local
 .env
+
+.vercel
