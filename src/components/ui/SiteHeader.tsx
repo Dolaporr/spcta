@@ -32,7 +32,9 @@ export default function SiteHeader({ onOpenModal }: SiteHeaderProps) {
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div className={`container ${styles.inner}`}>
-        <a href="#" className={styles.logo}>SPCTA</a>
+        <a href="#" className={styles.logo} aria-label="SPCTA home">
+          <img src="/logos/official/header-transparent.png" alt="SPCTA" className={styles.logoImage} />
+        </a>
 
         <nav className={styles.nav} aria-label="Main navigation">
           {NAV_LINKS.map(l => (

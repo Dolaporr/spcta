@@ -13,14 +13,19 @@
   display: flex; align-items: center;
   justify-content: space-between; height: 72px;
 }
-/* Blue text logo */
 .logo {
-  font-size: 22px; font-weight: 800;
-  letter-spacing: 0.08em; color: var(--blue);
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: opacity 0.2s;
 }
-.logo:hover { color: var(--cyan); }
+.logo:hover { opacity: 0.9; }
+
+.logoImage {
+  display: block;
+  width: 148px;
+  height: auto;
+}
 
 .nav { display: flex; gap: 32px; }
 .navLink {

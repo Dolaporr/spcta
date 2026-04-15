@@ -5,14 +5,15 @@ import { heroTitle, fadeUp, stagger } from "@/lib/animations";
 import styles from "./Hero.module.css";
 
 const LOGOS = [
-  { name: "Indorama", path: "/logos/indorama.svg", width: 170, height: 30 },
-  { name: "bp", path: "/logos/bp.svg", width: 136, height: 44 },
-  { name: "Coca-Cola", path: "/logos/coca-cola.svg", width: 188, height: 36 },
-  { name: "IHS", path: "/logos/ihs.svg", width: 96, height: 34 },
-  { name: "ACT", path: "/logos/act.svg", width: 188, height: 34 },
-  { name: "Future Africa", path: "/logos/future-africa.svg", width: 206, height: 36 },
-  { name: "CleanTech Open", path: "/logos/cleantech-open.svg", width: 214, height: 46 },
-  { name: "Lagos State Office of Works", path: "/logos/lagos-state-works.svg", width: 72, height: 72 },
+  { name: "bp", path: "/logos/official/bp.svg", width: 126, height: 38, tone: "invert" },
+  { name: "Coca-Cola", path: "https://www.coca-colacompany.com/content/dam/company/us/en/the-coca-cola-company-logo-white.svg", width: 188, height: 36, tone: "plain" },
+  { name: "P&G", path: "/logos/official/pg.png", width: 120, height: 46, tone: "invert" },
+  { name: "Indorama", path: "/logos/official/indorama-white.png", width: 202, height: 44, tone: "plain" },
+  { name: "IHS", path: "/logos/official/ihs-white.png", width: 128, height: 48, tone: "plain" },
+  { name: "ACT", path: "/logos/official/act.svg", width: 184, height: 32, tone: "invert" },
+  { name: "Future Africa", path: "/logos/official/future-africa.svg", width: 182, height: 32, tone: "plain" },
+  { name: "CleanTech Open", path: "/logos/official/cleantech-open-white.png", width: 184, height: 64, tone: "plain" },
+  { name: "Lagos State Office of Works", path: "/logos/official/lagos-state-works-white.png", width: 80, height: 80, tone: "plain" },
 ];
 
 const MARQUEE_ITEMS = [...LOGOS, ...LOGOS];
@@ -41,7 +42,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
           initial="hidden"
           animate="visible"
         >
-          <motion.p className="eyebrow eyebrow-green" variants={fadeUp}>
+          <motion.p className="eyebrow eyebrow-green" variants={fadeUp} style={{ justifyContent: "flex-end" }}>
             SPCTA Industrial
           </motion.p>
 
@@ -57,7 +58,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
             possible at scale.
           </motion.p>
 
-          <motion.div className="btn-row" variants={fadeUp}>
+          <motion.div className="btn-row" variants={fadeUp} style={{ justifyContent: "flex-end" }}>
             <button onClick={onOpenModal} className={`btn ${styles.btnPrimary}`}>
               Partner With SPCTA
             </button>
@@ -82,7 +83,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
                 <img
                   src={logo.path}
                   alt={logo.name}
-                  className={styles.logoImage}
+                  className={`${styles.logoImage} ${logo.tone === "invert" ? styles.logoImageInvert : ""}`}
                   style={{ width: logo.width, height: logo.height }}
                 />
               </div>

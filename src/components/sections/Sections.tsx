@@ -89,7 +89,7 @@ export function SystemOverview() {
           <motion.h2 variants={fadeUp} style={{ marginBottom: 16 }}>
             One Platform.
             <br />
-            <span style={{ whiteSpace: "nowrap" }}>Four Connected Capabilities.</span>
+            <span style={{ display: "block", width: "100%", textAlign: "center" }}>Four Connected Capabilities.</span>
           </motion.h2>
           <motion.p variants={fadeUp}>SPCTA brings together the critical layers needed to make circular supply chains operational—from recovery and coordination to workforce and processing.</motion.p>
           <motion.p className="support-line" variants={fadeUp}>Each part strengthens the next, creating a more reliable path from waste source to industrial supply.</motion.p>
@@ -332,14 +332,15 @@ const AUDIENCES = [
 
 export function Audiences() {
   const partners = [
-    { name: "Coca-Cola", src: "/logos/coca-cola.svg", width: 148, height: 32 },
-    { name: "bp", src: "/logos/bp.svg", width: 110, height: 38 },
-    { name: "Indorama", src: "/logos/indorama.svg", width: 146, height: 28 },
-    { name: "IHS", src: "/logos/ihs.svg", width: 82, height: 30 },
-    { name: "ACT", src: "/logos/act.svg", width: 164, height: 30 },
-    { name: "Future Africa", src: "/logos/future-africa.svg", width: 176, height: 30 },
-    { name: "CleanTech Open", src: "/logos/cleantech-open.svg", width: 184, height: 38 },
-    { name: "Lagos State Office of Works", src: "/logos/lagos-state-works.svg", width: 66, height: 66 },
+    { name: "bp", src: "/logos/official/bp.svg", width: 122, height: 38, tone: "invert" },
+    { name: "Coca-Cola", src: "https://www.coca-colacompany.com/content/dam/company/us/en/the-coca-cola-company-logo-white.svg", width: 176, height: 34, tone: "plain" },
+    { name: "P&G", src: "/logos/official/pg.png", width: 116, height: 44, tone: "invert" },
+    { name: "Indorama", src: "/logos/official/indorama-white.png", width: 188, height: 42, tone: "plain" },
+    { name: "IHS", src: "/logos/official/ihs-white.png", width: 122, height: 46, tone: "plain" },
+    { name: "ACT", src: "/logos/official/act.svg", width: 176, height: 32, tone: "invert" },
+    { name: "Future Africa", src: "/logos/official/future-africa.svg", width: 178, height: 32, tone: "plain" },
+    { name: "CleanTech Open", src: "/logos/official/cleantech-open-white.png", width: 176, height: 62, tone: "plain" },
+    { name: "Lagos State Office of Works", src: "/logos/official/lagos-state-works-white.png", width: 78, height: 78, tone: "plain" },
   ];
   return (
     <section className="sec sec-mid" id="audiences" style={{ paddingBottom: 140 }}>
@@ -358,23 +359,24 @@ export function Audiences() {
           ))}
         </motion.div>
         {/* Partner logos below audience grid */}
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ marginTop: 72, borderTop: "1px solid var(--border)", paddingTop: 56, maxWidth: 980, marginInline: "auto" }}>
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ marginTop: 72, paddingTop: 12, maxWidth: 980, marginInline: "auto" }}>
           <motion.p variants={fadeUp} style={{ textAlign: "center", fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 36 }}>Our Partners</motion.p>
           <motion.div
             variants={staggerFast}
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-              gap: 1,
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid var(--border)",
-              padding: 1,
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              alignItems: "center",
+              columnGap: 42,
+              rowGap: 28,
+              padding: "8px 0 0",
               maxWidth: 980,
               marginInline: "auto",
             }}
           >
             {partners.map((partner) => (
-              <motion.div key={partner.name} variants={cardItem} style={{ minHeight: 120, background: "#05070b", display: "flex", alignItems: "center", justifyContent: "center", padding: "26px 28px", textAlign: "center" }}>
+              <motion.div key={partner.name} variants={cardItem} style={{ minHeight: 82, minWidth: 148, display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 4px", textAlign: "center" }}>
                 <img
                   src={partner.src}
                   alt={partner.name}
@@ -383,7 +385,7 @@ export function Audiences() {
                     height: partner.height,
                     objectFit: "contain",
                     opacity: 0.92,
-                    filter: "drop-shadow(0 0 12px rgba(255,255,255,0.05))",
+                    filter: `${partner.tone === "invert" ? "brightness(0) invert(1) " : ""}drop-shadow(0 0 12px rgba(255,255,255,0.05))`,
                   }}
                 />
               </motion.div>
@@ -489,7 +491,11 @@ export function SiteFooter() {
       <div className="container">
         <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr 1fr", gap: 60, marginBottom: 60 }}>
           <div>
-            <p style={{ fontSize: 16, fontWeight: 800, letterSpacing: "0.06em", color: "var(--text)", marginBottom: 16 }}>SPCTA <span style={{ color: "var(--cyan)" }}>Industrial</span></p>
+            <img
+              src="/logos/official/header-transparent.png"
+              alt="SPCTA Industrial"
+              style={{ width: 188, height: "auto", marginBottom: 18, display: "block" }}
+            />
             <p style={{ fontSize: 13, lineHeight: 1.65, maxWidth: 240 }}>Building the infrastructure that powers circular supply chains.</p>
           </div>
           {[

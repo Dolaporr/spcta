@@ -17,6 +17,9 @@
   display: flex;
   flex-direction: column;
   max-width: 640px;
+  margin-left: auto;
+  align-items: flex-end;
+  text-align: right;
 }
 
 .headline {
@@ -96,8 +99,12 @@
   display: block;
   max-width: none;
   object-fit: contain;
-  opacity: 0.9;
+  opacity: 0.92;
   filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.08));
+}
+
+.logoImageInvert {
+  filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255, 255, 255, 0.08));
 }
 
 @keyframes marquee {
@@ -122,6 +129,12 @@
 
   .sub {
     font-size: 15px;
+  }
+
+  .copy {
+    margin-left: 0;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .marqueeWrap {
