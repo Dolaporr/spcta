@@ -332,15 +332,19 @@ const AUDIENCES = [
 
 export function Audiences() {
   const partners = [
-    { name: "bp", src: "/logos/official/bp.svg", width: 122, height: 38, tone: "invert" },
+    { name: "bp", src: "/logos/official/bp.svg", width: 138, height: 44, tone: "invert" },
     { name: "Coca-Cola", src: "https://www.coca-colacompany.com/content/dam/company/us/en/the-coca-cola-company-logo-white.svg", width: 176, height: 34, tone: "plain" },
     { name: "P&G", src: "/logos/official/pg.png", width: 116, height: 44, tone: "invert" },
     { name: "Indorama", src: "/logos/official/indorama-white.png", width: 188, height: 42, tone: "plain" },
-    { name: "IHS", src: "/logos/official/ihs-white.png", width: 122, height: 46, tone: "plain" },
+    { name: "IHS", src: "/logos/official/ihs-white.png", width: 138, height: 52, tone: "plain" },
     { name: "ACT", src: "/logos/official/act.svg", width: 176, height: 32, tone: "invert" },
-    { name: "Future Africa", src: "/logos/official/future-africa.svg", width: 178, height: 32, tone: "plain" },
+    { name: "Future Africa", src: "/logos/official/future-africa.svg", width: 196, height: 36, tone: "plain" },
     { name: "CleanTech Open", src: "/logos/official/cleantech-open-white.png", width: 176, height: 62, tone: "plain" },
     { name: "Lagos State Office of Works", src: "/logos/official/lagos-state-works-white.png", width: 78, height: 78, tone: "plain" },
+    { name: "Alliance to End Plastic Waste", src: "/logos/official/alliance-to-end-plastic-waste-white.png", width: 150, height: 68, tone: "plain" },
+    { name: "Alkem", src: "/logos/official/alkem-white.png", width: 138, height: 66, tone: "plain" },
+    { name: "Exxon", src: "/logos/official/exxon-white.png", width: 148, height: 56, tone: "plain" },
+    { name: "carbonivity", src: "/logos/official/carbonivity-white.png", width: 158, height: 46, tone: "plain" },
   ];
   return (
     <section className="sec sec-mid" id="audiences" style={{ paddingBottom: 140 }}>
@@ -494,7 +498,7 @@ export function SiteFooter() {
             <img
               src="/logos/official/header-transparent.png"
               alt="SPCTA Industrial"
-              style={{ width: 188, height: "auto", marginBottom: 18, display: "block" }}
+              style={{ width: 188, height: "auto", marginBottom: 18, display: "block", marginLeft: -18, marginRight: "auto" }}
             />
             <p style={{ fontSize: 13, lineHeight: 1.65, maxWidth: 240 }}>Building the infrastructure that powers circular supply chains.</p>
           </div>

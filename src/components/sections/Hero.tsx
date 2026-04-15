@@ -5,15 +5,19 @@ import { heroTitle, fadeUp, stagger } from "@/lib/animations";
 import styles from "./Hero.module.css";
 
 const LOGOS = [
-  { name: "bp", path: "/logos/official/bp.svg", width: 126, height: 38, tone: "invert" },
+  { name: "bp", path: "/logos/official/bp.svg", width: 142, height: 44, tone: "invert" },
   { name: "Coca-Cola", path: "https://www.coca-colacompany.com/content/dam/company/us/en/the-coca-cola-company-logo-white.svg", width: 188, height: 36, tone: "plain" },
   { name: "P&G", path: "/logos/official/pg.png", width: 120, height: 46, tone: "invert" },
   { name: "Indorama", path: "/logos/official/indorama-white.png", width: 202, height: 44, tone: "plain" },
-  { name: "IHS", path: "/logos/official/ihs-white.png", width: 128, height: 48, tone: "plain" },
+  { name: "IHS", path: "/logos/official/ihs-white.png", width: 144, height: 54, tone: "plain" },
   { name: "ACT", path: "/logos/official/act.svg", width: 184, height: 32, tone: "invert" },
-  { name: "Future Africa", path: "/logos/official/future-africa.svg", width: 182, height: 32, tone: "plain" },
+  { name: "Future Africa", path: "/logos/official/future-africa.svg", width: 198, height: 36, tone: "plain" },
   { name: "CleanTech Open", path: "/logos/official/cleantech-open-white.png", width: 184, height: 64, tone: "plain" },
   { name: "Lagos State Office of Works", path: "/logos/official/lagos-state-works-white.png", width: 80, height: 80, tone: "plain" },
+  { name: "Alliance to End Plastic Waste", path: "/logos/official/alliance-to-end-plastic-waste-white.png", width: 158, height: 72, tone: "plain" },
+  { name: "Alkem", path: "/logos/official/alkem-white.png", width: 144, height: 70, tone: "plain" },
+  { name: "Exxon", path: "/logos/official/exxon-white.png", width: 154, height: 58, tone: "plain" },
+  { name: "carbonivity", path: "/logos/official/carbonivity-white.png", width: 164, height: 48, tone: "plain" },
 ];
 
 const MARQUEE_ITEMS = [...LOGOS, ...LOGOS];
@@ -42,7 +46,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
           initial="hidden"
           animate="visible"
         >
-          <motion.p className="eyebrow eyebrow-green" variants={fadeUp} style={{ justifyContent: "flex-end" }}>
+          <motion.p className="eyebrow eyebrow-green" variants={fadeUp} style={{ justifyContent: "center" }}>
             SPCTA Industrial
           </motion.p>
 
@@ -58,13 +62,13 @@ export default function Hero({ onOpenModal }: HeroProps) {
             possible at scale.
           </motion.p>
 
-          <motion.div className="btn-row" variants={fadeUp} style={{ justifyContent: "flex-end" }}>
+          <motion.div className="btn-row" variants={fadeUp} style={{ justifyContent: "center" }}>
             <button onClick={onOpenModal} className={`btn ${styles.btnPrimary}`}>
               Partner With SPCTA
             </button>
-            <button onClick={onOpenModal} className="btn btn-secondary">
+            <a href="#system-overview" className="btn btn-secondary">
               Explore the SPCTA System
-            </button>
+            </a>
           </motion.div>
         </motion.div>
       </div>
