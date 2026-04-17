@@ -27,7 +27,7 @@ export function Problem() {
           The Need Is Growing.<br />The System Is Still Broken.
         </motion.h2>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 80, alignItems: "start" }}>
+        <div className="split-layout split-layout-wide" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 80, alignItems: "start" }}>
           <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={viewport}>
             <p style={{ marginBottom: 16 }}>Industrial demand for recycled materials is rising. But supply remains fragmented, inconsistent, and hard to scale.</p>
             <p style={{ marginBottom: 16 }}>Recovery systems are often manual. Processing is uneven. Infrastructure is too weak or too far from where waste is generated. Logistics are inefficient. Visibility is limited.</p>
@@ -35,7 +35,7 @@ export function Problem() {
             <p className="section-closing">Circular supply chains cannot scale without real infrastructure.</p>
           </motion.div>
 
-          <motion.div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+          <motion.div className="card-grid card-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
             {PAIN_CARDS.map(c => (
               <motion.article key={c.n} variants={cardItem} style={{ background: "rgba(13,17,23,0.84)", border: "1px solid var(--border)", padding: "32px 28px", backdropFilter: "blur(6px)", position: "relative", borderTop: "2px solid var(--blue)" }}>
                 <p style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--cyan)", marginBottom: 16 }}>// {c.n}</p>
@@ -95,9 +95,9 @@ export function SystemOverview() {
           <motion.p className="support-line" variants={fadeUp}>Each part strengthens the next, creating a more reliable path from waste source to industrial supply.</motion.p>
         </motion.div>
 
-        <motion.div style={{ display: "flex", alignItems: "center", justifyContent: "center" }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+        <motion.div className="system-overview-flow" style={{ display: "flex", alignItems: "center", justifyContent: "center" }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
           {SYS_NODES.map((node, i) => (
-            <div key={node.abbr} style={{ display: "flex", alignItems: "center" }}>
+            <div key={node.abbr} className="system-overview-item" style={{ display: "flex", alignItems: "center" }}>
               <motion.div variants={cardItem} style={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <p style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.2em", color: "var(--muted)", marginBottom: 14 }}>0{i + 1}</p>
                 <div style={{ width: 64, height: 64, borderRadius: "50%", border: `1.5px solid ${i % 2 === 0 ? "var(--blue)" : "var(--green)"}`, background: i % 2 === 0 ? "rgba(26,105,178,0.08)" : "rgba(143,192,69,0.08)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, animation: `sysPulse 3s ease-in-out ${i * 0.8}s infinite` }}>
@@ -107,7 +107,7 @@ export function SystemOverview() {
                 <p style={{ fontSize: 11, color: "var(--muted)", lineHeight: 1.5, maxWidth: 120, textAlign: "center" }}>{node.sub}</p>
               </motion.div>
               {i < SYS_NODES.length - 1 && (
-                <svg width="64" height="20" viewBox="0 0 64 20" style={{ margin: "0 8px", flexShrink: 0, marginBottom: 68 }}>
+                <svg className="system-overview-connector" width="64" height="20" viewBox="0 0 64 20" style={{ margin: "0 8px", flexShrink: 0, marginBottom: 68 }}>
                   <path d="M0,10 L58,10" fill="none" stroke="var(--blue)" strokeWidth="1" strokeDasharray="5 4" style={{ animation: "connDash 1.6s linear infinite" }} />
                   <polygon points="52,5 64,10 52,15" fill="var(--blue)" opacity="0.5" />
                 </svg>
@@ -139,18 +139,18 @@ export function Products({ onOpenModal }: { onOpenModal: () => void }) {
         <motion.div style={{ textAlign: "center", maxWidth: 560, margin: "0 auto 72px" }} variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
           <motion.p className="eyebrow eyebrow-center" variants={fadeUp}>Products</motion.p>
           <motion.h2 variants={fadeUp}>The SPCTA Platform<br />in Action</motion.h2>
-          <motion.p variants={fadeUp} style={{ marginTop: 16, whiteSpace: "nowrap" }}>Four integrated capabilities. One connected platform for circular supply chains.</motion.p>
+          <motion.p className="products-intro" variants={fadeUp} style={{ marginTop: 16, whiteSpace: "nowrap" }}>Four integrated capabilities. One connected platform for circular supply chains.</motion.p>
         </motion.div>
 
         {PRODUCTS.map((p, i) => {
           const even = i % 2 === 0;
           return (
-            <motion.article key={p.id} id={p.id}
+            <motion.article key={p.id} id={p.id} className="product-card"
               style={{ display: "grid", gridTemplateColumns: "1fr 1fr", border: "1px solid var(--border)", marginBottom: 2, background: "var(--surface-mid)", direction: even ? "ltr" : "rtl" }}
               variants={fadeIn} initial="hidden" whileInView="visible" viewport={viewport}
             >
-              <div style={{ minHeight: 340, backgroundImage: `url('/img/${p.img}.png')`, backgroundSize: "cover", backgroundPosition: "center", direction: "ltr" }} />
-              <div style={{ padding: "52px 52px", display: "flex", flexDirection: "column", justifyContent: "center", direction: "ltr" }}>
+              <div className="product-card-media" style={{ minHeight: 340, backgroundImage: `url('/img/${p.img}.png')`, backgroundSize: "cover", backgroundPosition: "center", direction: "ltr" }} />
+              <div className="product-card-copy" style={{ padding: "52px 52px", display: "flex", flexDirection: "column", justifyContent: "center", direction: "ltr" }}>
                 <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--cyan)", marginBottom: 12 }}>{p.label}</p>
                 <h3 style={{ color: "var(--text)", marginBottom: 10 }}>{p.title}</h3>
                 <p style={{ fontSize: 14, fontWeight: 600, color: "var(--blue)", marginBottom: 20, fontStyle: "italic" }}>{p.soundbite}</p>
@@ -193,7 +193,7 @@ export function HowItWorks() {
           <motion.h2 variants={fadeUp}>From Waste Source to Industrial Supply</motion.h2>
         </motion.div>
 
-        <motion.div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2, marginBottom: 48 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+        <motion.div className="card-grid card-grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2, marginBottom: 48 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
           {STEPS.map(s => (
             <motion.article key={s.n} variants={cardItem} style={{ background: "rgba(13,17,23,0.82)", border: "1px solid var(--border)", padding: "44px 32px", backdropFilter: "blur(6px)", position: "relative" }}>
               <span style={{ fontSize: 60, fontWeight: 800, lineHeight: 1, color: "rgba(255,255,255,0.04)", position: "absolute", top: 16, right: 16, letterSpacing: "-0.04em" }}>{s.n}</span>
@@ -228,7 +228,7 @@ export function Outcomes() {
           <motion.p className="eyebrow eyebrow-center" variants={fadeUp}>Outcomes</motion.p>
           <motion.h2 variants={fadeUp}>Built for Better Supply, Better Operations, and Better Results</motion.h2>
         </motion.div>
-        <motion.div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+        <motion.div className="card-grid card-grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
           {OUTCOMES.map(o => (
             <motion.article key={o.title} variants={cardItem} style={{ background: "var(--surface-mid)", border: "1px solid var(--border)", padding: "44px 36px", borderTop: `2px solid ${o.accent}` }}>
               <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 20 }}>// {o.tag}</p>
@@ -259,12 +259,12 @@ export function WhySPCTA() {
           Most Players Solve One Part.<br />SPCTA Integrates the System.
         </motion.h2>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, marginTop: 52, alignItems: "start" }}>
+        <div className="split-layout split-layout-wide" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, marginTop: 52, alignItems: "start" }}>
           <motion.p variants={slideLeft} initial="hidden" whileInView="visible" viewport={viewport} style={{ fontSize: 16, lineHeight: 1.75 }}>
             Collection alone is not enough. Software alone is not enough. Processing alone is not enough. SPCTA combines infrastructure, software, workforce, and advanced processing into one platform built for industrial relevance and scale.
           </motion.p>
 
-          <motion.div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+          <motion.div className="card-grid card-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
             {CONTRAST.map(c => (
               <motion.div key={c.not} variants={cardItem} style={{ background: "var(--surface-mid)", border: "1px solid var(--border)", padding: "36px 32px" }}>
                 <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", color: "var(--muted)", textDecoration: "line-through", marginBottom: 10 }}>{c.not}</p>
@@ -303,7 +303,7 @@ export function Proof() {
           <motion.p variants={fadeUp}>SPCTA is built to support industrial buyers, enterprise waste generators, public-sector collaborators, and strategic investors seeking circular infrastructure that can scale.</motion.p>
         </motion.div>
 
-        <motion.div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 2, marginBottom: 32 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+        <motion.div className="card-grid card-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 2, marginBottom: 32 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
           {PROOF_TILES.map(t => (
             <motion.div key={t.label} variants={cardItem} style={{ background: "rgba(13,17,23,0.84)", border: "1px solid var(--border)", padding: "36px 28px", backdropFilter: "blur(6px)", textAlign: "center" }}>
               <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1, color: t.accent, marginBottom: 8, letterSpacing: "-0.02em" }}>{t.val}{t.unit}</div>
@@ -347,13 +347,13 @@ export function Audiences() {
     { name: "carbonivity", src: "/logos/official/carbonivity-white.png", width: 158, height: 46, tone: "plain" },
   ];
   return (
-    <section className="sec sec-mid" id="audiences" style={{ paddingBottom: 140 }}>
+    <section className="sec sec-mid audiences-section" id="audiences" style={{ paddingBottom: 140 }}>
       <div className="container">
         <motion.div style={{ textAlign: "center", maxWidth: 560, margin: "0 auto 64px" }} variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
           <motion.p className="eyebrow eyebrow-center" variants={fadeUp}>Who We Serve</motion.p>
           <motion.h2 variants={fadeUp}>Built for the Stakeholders Shaping Circular Industry</motion.h2>
         </motion.div>
-        <motion.div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
+        <motion.div className="card-grid card-grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 2 }} variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport}>
           {AUDIENCES.map(a => (
             <motion.article key={a.title} variants={cardItem} style={{ background: "var(--surface-mid)", border: "1px solid var(--border)", padding: "44px 36px" }}>
               <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(26,105,178,0.12)", border: "1px solid rgba(26,105,178,0.3)", marginBottom: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{a.icon}</div>
@@ -366,6 +366,7 @@ export function Audiences() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ marginTop: 72, paddingTop: 12, maxWidth: 980, marginInline: "auto" }}>
           <motion.p variants={fadeUp} style={{ textAlign: "center", fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 36 }}>Our Partners</motion.p>
           <motion.div
+            className="partner-grid"
             variants={staggerFast}
             style={{
               display: "flex",
@@ -380,7 +381,7 @@ export function Audiences() {
             }}
           >
             {partners.map((partner) => (
-              <motion.div key={partner.name} variants={cardItem} style={{ minHeight: 82, minWidth: 148, display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 4px", textAlign: "center" }}>
+              <motion.div key={partner.name} className="partner-grid-item" variants={cardItem} style={{ minHeight: 82, minWidth: 148, display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 4px", textAlign: "center" }}>
                 <img
                   src={partner.src}
                   alt={partner.name}
@@ -493,7 +494,7 @@ export function SiteFooter() {
   return (
     <footer style={{ background: "var(--surface)", borderTop: "1px solid var(--border)", padding: "72px 0 0" }}>
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr 1fr", gap: 60, marginBottom: 60 }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr 1fr", gap: 60, marginBottom: 60 }}>
           <div>
             <img
               src="/logos/official/header-transparent.png"
@@ -517,7 +518,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div style={{ borderTop: "1px solid var(--border)", padding: "24px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="footer-bottom" style={{ borderTop: "1px solid var(--border)", padding: "24px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <span style={{ fontSize: 12, color: "var(--muted)" }}>© 2026 SPCTA Industrial. All rights reserved.</span>
           <span style={{ fontSize: 12, color: "var(--muted)" }}>Infrastructure for circular supply chains.</span>
         </div>

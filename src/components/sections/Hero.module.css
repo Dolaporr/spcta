@@ -123,12 +123,17 @@
     padding-top: 100px;
   }
 
+  .layout {
+    padding-bottom: 56px;
+  }
+
   .headline {
     font-size: clamp(36px, 9vw, 56px);
   }
 
   .sub {
     font-size: 15px;
+    max-width: 100%;
   }
 
   .marqueeWrap {
@@ -148,5 +153,40 @@
     width: auto !important;
     max-width: 150px;
     max-height: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: auto;
+    padding-top: 88px;
+  }
+
+  .layout {
+    padding-bottom: 40px;
+  }
+
+  .copy {
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .sub {
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .marqueeWrap {
+    padding: 18px 0 24px;
+  }
+
+  .logoItem {
+    min-height: 52px;
+    padding: 0 14px;
+  }
+
+  .logoImage {
+    max-width: 120px;
+    max-height: 28px;
   }
 }

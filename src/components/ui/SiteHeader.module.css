@@ -86,7 +86,38 @@
 }
 
 @media (max-width: 960px) {
+  .inner {
+    height: 64px;
+  }
+
+  .logoImage {
+    width: 118px;
+  }
+
   .nav { display: none; }
   .cta { display: none; }
   .hamburger { display: flex; }
+
+  .mobileMenu {
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .inner {
+    height: 60px;
+  }
+
+  .logoImage {
+    width: 104px;
+  }
+
+  .mobileLink {
+    padding: 13px 18px;
+  }
+
+  .mobileCta {
+    margin: 14px 18px 18px;
+  }
 }
