@@ -18,6 +18,89 @@ const transporter = nodemailer.createTransport({
 });
 
 const SPCTA_EMAILS = ["charles@spcta.green", "tunji.alade@spcta.green"];
+const HUBSPOT_API_BASE = "https://api.hubapi.com";
+
+type ContactPayload = {
+  stakeholderType: string;
+  fullName: string;
+  jobTitle: string;
+  companyName: string;
+  city: string;
+  country: string;
+  email: string;
+  phone?: string;
+  request: string;
+};
+
+function requireEnv(name: string) {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
+async function hubspotRequest<T>(path: string, init: RequestInit): Promise<T> {
+  const token = requireEnv("HUBSPOT_ACCESS_TOKEN");
+  const res = await fetch(`${HUBSPOT_API_BASE}${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      ...(init.headers || {}),
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`HubSpot request failed (${res.status}): ${errorText}`);
+  }
+
+  return res.json() as Promise<T>;
+}
+
+async function upsertHubSpotContact(data: ContactPayload) {
+  const [firstname, ...restName] = data.fullName.trim().split(/\s+/);
+  const lastname = restName.join(" ");
+  const properties = {
+    email: data.email,
+    firstname: firstname || data.fullName,
+    lastname,
+    company: data.companyName,
+    city: data.city,
+    country: data.country,
+    phone: data.phone || "",
+    jobtitle: data.jobTitle,
+  };
+
+  const contact = await hubspotRequest<{ results?: Array<{ id: string }> }>(
+    "/crm/v3/objects/contacts/batch/upsert",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        inputs: [
+          {
+            idProperty: "email",
+            id: data.email,
+            properties,
+          },
+        ],
+      }),
+    },
+  );
+
+  const contactId = contact.results?.[0]?.id;
+  if (!contactId) {
+    throw new Error("HubSpot upsert did not return a contact id");
+  }
+
+  return contactId;
+}
+
+async function syncHubSpotContact(data: ContactPayload) {
+  await upsertHubSpotContact(data);
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,6 +109,18 @@ export async function POST(req: NextRequest) {
       stakeholderType, fullName, jobTitle, companyName,
       city, country, email, phone, request,
     } = data;
+
+    const submission: ContactPayload = {
+      stakeholderType,
+      fullName,
+      jobTitle,
+      companyName,
+      city,
+      country,
+      email,
+      phone,
+      request,
+    };
 
     const submissionHtml = `
       <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
@@ -84,6 +179,8 @@ export async function POST(req: NextRequest) {
         </div>
       </div>
     `;
+
+    await syncHubSpotContact(submission);
 
     // Send to SPCTA team
     await transporter.sendMail({
