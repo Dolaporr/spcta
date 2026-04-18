@@ -7,13 +7,23 @@ import nodemailer from "nodemailer";
    B) Resend SMTP: host: "smtp.resend.com", port: 465, user: "resend", pass: RE_API_KEY
    C) Set env vars in .env.local (recommended)
    ─────────────────────────────────────────────────────────── */
+const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
+const smtpPort = Number(process.env.SMTP_PORT) || 587;
+const smtpSecure = process.env.SMTP_SECURE === "true";
+const smtpUser = process.env.SMTP_USER || "";
+const smtpPass = process.env.SMTP_PASS || "";
+const useResendApi = smtpHost === "smtp.resend.com";
+const defaultFromEmail = useResendApi
+  ? process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev"
+  : smtpUser;
+
 const transporter = nodemailer.createTransport({
-  host:   process.env.SMTP_HOST     || "smtp.gmail.com",
-  port:   Number(process.env.SMTP_PORT)  || 587,
-  secure: process.env.SMTP_SECURE   === "true",
+  host: smtpHost,
+  port: smtpPort,
+  secure: smtpSecure,
   auth: {
-    user: process.env.SMTP_USER     || "",
-    pass: process.env.SMTP_PASS     || "",
+    user: smtpUser,
+    pass: smtpPass,
   },
 });
 
@@ -30,6 +40,14 @@ type ContactPayload = {
   email: string;
   phone?: string;
   request: string;
+};
+
+type EmailPayload = {
+  from: string;
+  to: string | string[];
+  subject: string;
+  html: string;
+  replyTo?: string;
 };
 
 function requireEnv(name: string) {
@@ -102,6 +120,44 @@ async function syncHubSpotContact(data: ContactPayload) {
   await upsertHubSpotContact(data);
 }
 
+async function sendResendEmail({ from, to, subject, html, replyTo }: EmailPayload) {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${smtpPass}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      html,
+      reply_to: replyTo,
+    }),
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Resend API request failed (${res.status}): ${errorText}`);
+  }
+}
+
+async function sendEmail(payload: EmailPayload) {
+  if (useResendApi) {
+    await sendResendEmail(payload);
+    return;
+  }
+
+  await transporter.sendMail({
+    from: payload.from,
+    to: payload.to,
+    subject: payload.subject,
+    html: payload.html,
+    replyTo: payload.replyTo,
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
@@ -137,7 +193,7 @@ export async function POST(req: NextRequest) {
               ["Company",          companyName],
               ["Location",         `${city}, ${country}`],
               ["Email",            email],
-              ["Phone",            phone || "—"],
+              ["Phone",            phone || "-"],
             ].map(([label, value]) => `
               <tr>
                 <td style="padding:10px 16px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#666;width:160px;border-bottom:1px solid #e5e5e5">${label}</td>
@@ -183,19 +239,20 @@ export async function POST(req: NextRequest) {
     await syncHubSpotContact(submission);
 
     // Send to SPCTA team
-    await transporter.sendMail({
-      from:    `"SPCTA Website" <${process.env.SMTP_USER}>`,
-      to:      SPCTA_EMAILS.join(", "),
-      subject: `New Partnership Enquiry — ${fullName} (${companyName})`,
-      html:    submissionHtml,
+    await sendEmail({
+      from: `"SPCTA Website" <${defaultFromEmail}>`,
+      to: SPCTA_EMAILS,
+      subject: `New Partnership Enquiry - ${fullName} (${companyName})`,
+      html: submissionHtml,
+      replyTo: email,
     });
 
     // Send confirmation to submitter
-    await transporter.sendMail({
-      from:    `"SPCTA Industrial" <${process.env.SMTP_USER}>`,
-      to:      email,
+    await sendEmail({
+      from: `"SPCTA Industrial" <${defaultFromEmail}>`,
+      to: email,
       subject: "Thank you for your interest in SPCTA Industrial",
-      html:    confirmationHtml,
+      html: confirmationHtml,
     });
 
     return NextResponse.json({ success: true });
