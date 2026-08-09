@@ -6,7 +6,7 @@ import styles from "./Hero.module.css";
 
 const LOGOS = [
   { name: "bp", path: "/logos/official/bp.svg", width: 142, height: 44, tone: "invert" },
-  { name: "Coca-Cola", path: "https://www.coca-colacompany.com/content/dam/company/us/en/the-coca-cola-company-logo-white.svg", width: 188, height: 36, tone: "plain" },
+  { name: "Coca-Cola", path: "/logos/coca-cola.svg", width: 188, height: 36, tone: "plain" },
   { name: "P&G", path: "/logos/official/pg.png", width: 120, height: 46, tone: "invert" },
   { name: "Indorama", path: "/logos/official/indorama-white.png", width: 202, height: 44, tone: "plain" },
   { name: "IHS", path: "/logos/official/ihs-white.png", width: 144, height: 54, tone: "plain" },
