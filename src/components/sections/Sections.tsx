@@ -333,7 +333,7 @@ const AUDIENCES = [
 export function Audiences() {
   const partners = [
     { name: "bp", src: "/logos/official/bp.svg", width: 138, height: 44, tone: "invert" },
-    { name: "Coca-Cola", src: "/logos/coca-cola.svg", width: 176, height: 29, tone: "invert" },
+    { name: "Coca-Cola", src: "/logos/coca-cola.svg", width: 124, height: 56, tone: "invert" },
     { name: "P&G", src: "/logos/official/pg.png", width: 116, height: 44, tone: "invert" },
     { name: "Indorama", src: "/logos/official/indorama-white.png", width: 188, height: 42, tone: "plain" },
     { name: "IHS", src: "/logos/official/ihs-white.png", width: 138, height: 52, tone: "plain" },
